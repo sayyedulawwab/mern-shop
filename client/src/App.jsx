@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Product from './pages/Product';
 import ProductList from './pages/ProductList';
 import Register from './pages/Register';
-
+import Success from './pages/Success';
 
 function App() {
   return (
@@ -16,9 +16,7 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
 
-        {/* <Route path="/success">
-          <Success />
-        </Route> */}
+        <Route path="/success" element={<Success />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
