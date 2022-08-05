@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { register } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 
 const Container = styled.div`
@@ -52,25 +55,62 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  &:disabled {
+    color: teal;
+    cursor: not-allowed;
+  }
 `;
-
+const Error = styled.span`
+  color: red;
+`;
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useDispatch();
+  const { pending, error } = useSelector(state => state.user);
+
+  const handleClick = e => {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      register(dispatch, { username, email, password });
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } else {
+     
+    }
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input
+            placeholder="username"
+            onChange={e => setUsername(e.target.value)}
+          />
+          <Input placeholder="email" onChange={e => setEmail(e.target.value)} />
+          <Input
+            placeholder="password"
+            type="password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Input
+            placeholder="confirm password"
+            type="password"
+            onChange={e => setConfirmPassword(e.target.value)}
+          />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={handleClick} disabled={pending}>
+            REGISTER
+          </Button>
+          {error && <Error>Something went wrong...</Error>}
         </Form>
       </Wrapper>
     </Container>
