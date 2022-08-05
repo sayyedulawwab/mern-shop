@@ -13,6 +13,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import Timeline from '@mui/icons-material/Timeline';
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Side = styled.div`
@@ -79,8 +80,10 @@ const Sidebar = () => {
         <List>
           <Title>MAIN</Title>
           <ListItem>
-            <LineStyle className="icon" />
-            <span>Home</span>
+            <Link to="/">
+              <LineStyle className="icon" />
+              <span>Home</span>
+            </Link>
           </ListItem>
           <ListItem>
             <Timeline className="icon" />
@@ -93,13 +96,17 @@ const Sidebar = () => {
           <Title>LISTS</Title>
 
           <ListItem>
-            <PersonOutlineIcon className="icon" />
-            <span>Users</span>
+            <Link to="/users">
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </Link>
           </ListItem>
 
           <ListItem>
-            <StoreIcon className="icon" />
-            <span>Products</span>
+            <Link to="/products">
+              <StoreIcon className="icon" />
+              <span>Products</span>
+            </Link>
           </ListItem>
 
           <ListItem>
