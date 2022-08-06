@@ -13,6 +13,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import Timeline from '@mui/icons-material/Timeline';
 import TrendingUp from '@mui/icons-material/TrendingUp';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Side = styled.div`
@@ -51,8 +52,22 @@ const ListItem = styled.li`
   align-items: center;
   padding: 5px;
   cursor: pointer;
+
   &:hover {
     background-color: #ece8ff;
+  }
+  &:hover {
+    background-color: #ece8ff;
+  }
+  .icon {
+    font-size: 18px;
+    color: #7451f8;
+  }
+  span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    margin-left: 10px;
   }
 `;
 const Title = styled.div`
@@ -77,11 +92,13 @@ const Sidebar = () => {
       <Hr />
       <Center>
         <List>
-          <Title>MAIN</Title>
-          <ListItem>
-            <LineStyle className="icon" />
-            <span>Home</span>
-          </ListItem>
+          <Title>MAIN</Title>{' '}
+          <Link to="/">
+            <ListItem>
+              <LineStyle className="icon" />
+              <span>Home</span>
+            </ListItem>{' '}
+          </Link>
           <ListItem>
             <Timeline className="icon" />
             <span>Analytics</span>
@@ -91,17 +108,18 @@ const Sidebar = () => {
             <span>Sales</span>
           </ListItem>
           <Title>LISTS</Title>
-
-          <ListItem>
-            <PersonOutlineIcon className="icon" />
-            <span>Users</span>
-          </ListItem>
-
-          <ListItem>
-            <StoreIcon className="icon" />
-            <span>Products</span>
-          </ListItem>
-
+          <Link to="/users">
+            <ListItem>
+              <PersonOutlineIcon className="icon" />
+              <span>Users</span>
+            </ListItem>
+          </Link>
+          <Link to="/products">
+            <ListItem>
+              <StoreIcon className="icon" />
+              <span>Products</span>
+            </ListItem>
+          </Link>
           <ListItem>
             <AttachMoney className="icon" />
             <span>Transactions</span>
