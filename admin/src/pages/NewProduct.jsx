@@ -56,7 +56,9 @@ const Button = styled.button`
 `;
 
 const NewProduct = () => {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    inStock: true,
+  });
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState([]);
   const dispatch = useDispatch();
