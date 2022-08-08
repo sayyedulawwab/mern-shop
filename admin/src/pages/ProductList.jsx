@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   flex: 5;
 `;
 const StyledProductList = styled.div`
-  height: 70vh;
+  height: 80vh;
   width: 100%;
 `;
 const ListItem = styled.div`
@@ -39,6 +39,20 @@ const EditButton = styled.button`
   color: white;
   cursor: pointer;
   margin-right: 20px;
+`;
+
+const AddButton = styled.button`
+  margin: 1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background-color: #6d44ff;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
+  :hover {
+    background-color: #6d55ff;
+  }
 `;
 
 const ProductList = () => {
@@ -99,6 +113,9 @@ const ProductList = () => {
       <Wrapper>
         <Navbar />
         <StyledProductList>
+          <Link to={'/newproduct'}>
+            <AddButton>Add new product</AddButton>
+          </Link>
           <DataGrid
             rows={products}
             disableSelectionOnClick
