@@ -1,11 +1,19 @@
 import Publish from '@mui/icons-material/Publish';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Chart from '../components/Chart';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import app from '../firebase';
+import { updateProduct } from '../redux/apiCalls';
 import { userRequest } from '../requestMethods';
 
 const Container = styled.div`
@@ -170,7 +178,6 @@ const Product = () => {
     ],
     []
   );
-
   useEffect(() => {
     const getStats = async () => {
       try {
@@ -190,6 +197,81 @@ const Product = () => {
     };
     getStats();
   }, [productId, MONTHS]);
+
+  const [inputs, setInputs] = useState({
+    inStock: product.inStock,
+    img: product.img,
+  });
+  const [file, setFile] = useState(product.img);
+  const [cat, setCat] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleChange = e => {
+    setInputs(prev => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+  const handleCat = e => {
+    setCat(e.target.value.split(','));
+  };
+
+  const handleClick = e => {
+    e.preventDefault();
+    if (file === product.img) {
+      const updatedProduct = {
+        ...inputs,
+        img: product.img,
+        categories: cat,
+      };
+      updateProduct(productId, updatedProduct, dispatch);
+      navigate('/products');
+    } else {
+      const fileName = new Date().getTime() + file.name;
+      const storage = getStorage(app);
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on(
+        'state_changed',
+        snapshot => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+            default:
+          }
+        },
+        error => {
+          // Handle unsuccessful uploads
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+            const updatedProduct = {
+              ...inputs,
+              img: downloadURL,
+              categories: cat,
+            };
+            updateProduct(productId, updatedProduct, dispatch);
+            navigate('/products');
+          });
+        }
+      );
+    }
+  };
 
   return (
     <Container>
@@ -232,13 +314,34 @@ const Product = () => {
             <Form>
               <FormLeft>
                 <label>Product Name</label>
-                <input type="text" placeholder={product.title} />
+                <input
+                  type="text"
+                  placeholder={product.title}
+                  name="title"
+                  onChange={handleChange}
+                />
                 <label>Product Description</label>
-                <input type="text" placeholder={product.desc} />
+                <input
+                  type="text"
+                  name="desc"
+                  placeholder={product.desc}
+                  onChange={handleChange}
+                />
                 <label>Price</label>
-                <input type="text" placeholder={product.price} />
+                <input
+                  type="number"
+                  name="price"
+                  placeholder={product.price}
+                  onChange={handleChange}
+                />
+                <label>Categories</label>
+                <input
+                  type="text"
+                  placeholder={product.categories.toString()}
+                  onChange={handleCat}
+                />
                 <label>In Stock</label>
-                <select name="inStock" id="idStock">
+                <select name="inStock" onChange={handleChange}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
@@ -246,12 +349,17 @@ const Product = () => {
               <FormRight>
                 <Upload>
                   <UploadImage src={product.img} alt="" />
-                  <label for="file">
+                  <label htmlFor="file">
                     <Publish />
                   </label>
-                  <input type="file" id="file" style={{ display: 'none' }} />
+                  <input
+                    type="file"
+                    id="file"
+                    style={{ display: 'none' }}
+                    onChange={e => setFile(e.target.files[0])}
+                  />
                 </Upload>
-                <UpdateButton>Update</UpdateButton>
+                <UpdateButton onClick={handleClick}>Update</UpdateButton>
               </FormRight>
             </Form>
           </Bottom>
