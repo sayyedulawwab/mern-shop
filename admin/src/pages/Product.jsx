@@ -7,7 +7,7 @@ import {
 } from 'firebase/storage';
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Chart from '../components/Chart';
 import Navbar from '../components/Navbar';
@@ -31,17 +31,6 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
-
-const AddButton = styled.h1`
-  width: 80px;
-  border: none;
-  padding: 5px;
-  background-color: teal;
-  color: white;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
 `;
 
 const Top = styled.div`
@@ -281,9 +270,6 @@ const Product = () => {
         <StyledProduct>
           <TitleContainer>
             <h1>Product</h1>
-            <Link to="/newproduct">
-              <AddButton>Create</AddButton>
-            </Link>
           </TitleContainer>
           <Top>
             <TopLeft>
