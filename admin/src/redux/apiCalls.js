@@ -38,6 +38,7 @@ export const getProducts = async dispatch => {
 export const deleteProduct = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
+    // // to delete product from database add the following line and replace deleteProductSuccess(id) with deleteProductSuccess(res.data._id)
     // const res = await userRequest.delete(`/products/${id}`);
     dispatch(deleteProductSuccess(id));
   } catch (err) {
