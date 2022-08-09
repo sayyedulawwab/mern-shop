@@ -1,11 +1,11 @@
 import Facebook from '@mui/icons-material/Facebook';
 import Instagram from '@mui/icons-material/Instagram';
-import Pinterest from '@mui/icons-material/Pinterest';
-import Twitter from '@mui/icons-material/Twitter';
-
 import MailOutline from '@mui/icons-material/MailOutline';
 import Phone from '@mui/icons-material/Phone';
+import Pinterest from '@mui/icons-material/Pinterest';
 import Room from '@mui/icons-material/Room';
+import Twitter from '@mui/icons-material/Twitter';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile, tablet } from '../responsive';
 
@@ -102,14 +102,21 @@ const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Man Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
+          <ListItem>
+            <Link to="/">Home</Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/cart">Cart</Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/products/men">Men's Fashion</Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/products/women">Women's Fashion</Link>
+          </ListItem>
           <ListItem>Accessories</ListItem>
           <ListItem>My Account</ListItem>
           <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Terms</ListItem>
         </List>
