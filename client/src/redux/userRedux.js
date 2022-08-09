@@ -24,7 +24,7 @@ const userSlice = createSlice({
     },
     registerSuccess: (state, action) => {
       state.pending = false;
-      state.user = action.payload;
+      state.currentUser = action.payload;
     },
     registerFailure: state => {
       state.pending = false;
