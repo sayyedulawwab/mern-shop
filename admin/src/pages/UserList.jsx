@@ -56,12 +56,13 @@ const AddButton = styled.button`
 const UserList = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.user.users);
+  const currentUser = useSelector(state => state.user.currentUser);
 
   useEffect(() => {
     getUsers(dispatch);
   }, [dispatch]);
   const handleDelete = id => {
-    if (users.length > 1) {
+    if (id !== currentUser._id) {
       deleteUser(id, dispatch);
     }
   };
