@@ -26,6 +26,9 @@ import {
   loginFailure,
   loginStart,
   loginSuccess,
+  logoutFailure,
+  logoutStart,
+  logoutSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -38,6 +41,15 @@ export const login = async (dispatch, user) => {
     dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure());
+  }
+};
+
+export const logout = async dispatch => {
+  dispatch(logoutStart());
+  try {
+    dispatch(logoutSuccess());
+  } catch (err) {
+    dispatch(logoutFailure());
   }
 };
 

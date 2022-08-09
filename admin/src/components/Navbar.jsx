@@ -2,7 +2,9 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import Search from '@mui/icons-material/Search';
 import { Badge } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { logout } from '../redux/apiCalls';
 
 const Container = styled.div`
   height: 60px;
@@ -58,6 +60,15 @@ const Avatar = styled.img`
 `;
 
 const Navbar = () => {
+  const currentUser = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    if (currentUser !== null) {
+      logout(dispatch);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -72,6 +83,7 @@ const Navbar = () => {
           <MenuItem>
             <LanguageOutlinedIcon /> English
           </MenuItem>
+          {currentUser && <MenuItem onClick={handleClick}>LOGOUT</MenuItem>}
           <MenuItem>
             <Badge badgeContent={2} color="primary">
               <NotificationsNoneOutlinedIcon />

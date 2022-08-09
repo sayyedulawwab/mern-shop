@@ -20,6 +20,17 @@ const userSlice = createSlice({
       state.pending = false;
       state.error = true;
     },
+    logoutStart: state => {
+      state.pending = true;
+    },
+    logoutSuccess: state => {
+      state.pending = false;
+      state.currentUser = null;
+    },
+    logoutFailure: state => {
+      state.pending = false;
+      state.error = true;
+    },
     //GET ALL
     getUsersStart: state => {
       state.pending = true;
@@ -93,6 +104,9 @@ export const {
   loginFailure,
   loginStart,
   loginSuccess,
+  logoutStart,
+  logoutSuccess,
+  logoutFailure,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,

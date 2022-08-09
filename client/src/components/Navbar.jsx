@@ -1,9 +1,10 @@
 import Search from '@mui/icons-material/Search';
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
 import { Badge } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { logout } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 
 const Container = styled.div`
@@ -68,6 +69,14 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector(state => state.cart.quantity);
+  const currentUser = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    if (currentUser !== null) {
+      logout(dispatch);
+    }
+  };
 
   return (
     <Container>
@@ -83,12 +92,18 @@ const Navbar = () => {
           <Logo>MERN SHOP</Logo>
         </Center>
         <Right>
-          <Link to="/register">
-            <MenuItem>REGISTER</MenuItem>
-          </Link>
-          <Link to="/login">
-            <MenuItem>SIGN IN</MenuItem>
-          </Link>
+          {currentUser ? (
+            <MenuItem onClick={handleClick}>LOGOUT</MenuItem>
+          ) : (
+            <>
+              <Link to="/register">
+                <MenuItem>REGISTER</MenuItem>
+              </Link>
+              <Link to="/login">
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
+            </>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

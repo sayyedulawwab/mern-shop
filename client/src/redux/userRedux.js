@@ -30,6 +30,17 @@ const userSlice = createSlice({
       state.pending = false;
       state.error = true;
     },
+    logoutStart: state => {
+      state.pending = true;
+    },
+    logoutSuccess: state => {
+      state.pending = false;
+      state.currentUser = null;
+    },
+    logoutFailure: state => {
+      state.pending = false;
+      state.error = true;
+    },
   },
 });
 
@@ -40,6 +51,9 @@ export const {
   registerStart,
   registerSuccess,
   registerFailure,
+  logoutStart,
+  logoutSuccess,
+  logoutFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;
