@@ -61,7 +61,9 @@ const UserList = () => {
     getUsers(dispatch);
   }, [dispatch]);
   const handleDelete = id => {
-    deleteUser(id, dispatch);
+    if (users.length > 1) {
+      deleteUser(id, dispatch);
+    }
   };
 
   const columns = [
