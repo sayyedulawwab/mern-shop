@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import app from '../firebase';
+
 import { updateUser } from '../redux/apiCalls';
 
 const Container = styled.div`
@@ -141,7 +142,7 @@ const User = () => {
   );
 
   const [inputs, setInputs] = useState({
-    inStock: user.inStock,
+    isAdmin: user.isAdmin,
     img: user.img,
   });
   const [file, setFile] = useState(user.img);
@@ -221,7 +222,13 @@ const User = () => {
           </TitleContainer>
           <Top>
             <InfoTop>
-              <InfoImg src={user.img} alt="" />
+              <InfoImg
+                src={
+                  user.img ||
+                  'https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif'
+                }
+                alt=""
+              />
               <InfoTitle>{user.username}</InfoTitle>
             </InfoTop>
             <InfoBottom>
@@ -256,10 +263,10 @@ const User = () => {
                   placeholder={user.email}
                   onChange={handleChange}
                 />
-                <label>Price</label>
+                <label>Password</label>
                 <input
                   type="password"
-                  name="price"
+                  name="password"
                   placeholder="Enter new password"
                   onChange={handleChange}
                 />

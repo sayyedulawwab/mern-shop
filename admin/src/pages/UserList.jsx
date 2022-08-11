@@ -116,7 +116,6 @@ const UserList = () => {
       <Wrapper>
         <Navbar />
         <StyledUserList>
-          {' '}
           <Link to={'/newuser'}>
             <AddButton>Add new admin</AddButton>
           </Link>
