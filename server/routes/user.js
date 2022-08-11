@@ -46,7 +46,7 @@ router.get('/stats', verifyTokenAndAdmin, async (req, res) => {
   }
 });
 //GET USER
-router.get('/:id', verifyTokenAndAdmin, async (req, res) => {
+router.get('/:id', verifyTokenAndAuthorization, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
