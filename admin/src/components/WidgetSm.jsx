@@ -40,7 +40,7 @@ const User = styled.div`
   flex-direction: column;
 `;
 
-const Username = styled.h1`
+const Username = styled.h3`
   font-weight: 600;
 `;
 
