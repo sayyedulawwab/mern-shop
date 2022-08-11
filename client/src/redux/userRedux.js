@@ -41,6 +41,37 @@ const userSlice = createSlice({
       state.pending = false;
       state.error = true;
     },
+    //DELETE
+    deleteUserStart: state => {
+      state.pending = true;
+      state.error = false;
+    },
+    deleteUserSuccess: (state, action) => {
+      state.pending = false;
+      state.users.splice(
+        state.users.findIndex(item => item._id === action.payload),
+        1
+      );
+    },
+    deleteUserFailure: state => {
+      state.pending = false;
+      state.error = true;
+    },
+    //UPDATE
+    updateUserStart: state => {
+      state.pending = true;
+      state.error = false;
+    },
+    updateUserSuccess: (state, action) => {
+      state.pending = false;
+      state.users[
+        state.users.findIndex(user => user._id === action.payload.id)
+      ] = action.payload;
+    },
+    updateUserFailure: state => {
+      state.pending = false;
+      state.error = true;
+    },
   },
 });
 
@@ -54,6 +85,12 @@ export const {
   logoutStart,
   logoutSuccess,
   logoutFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;

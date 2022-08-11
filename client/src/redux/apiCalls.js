@@ -1,5 +1,8 @@
-import { publicRequest } from '../requestMethods';
+import { publicRequest, userRequest } from '../requestMethods';
 import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
   loginFailure,
   loginStart,
   loginSuccess,
@@ -9,6 +12,9 @@ import {
   registerFailure,
   registerStart,
   registerSuccess,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess,
 } from './userRedux';
 
 export const login = async (dispatch, user) => {
@@ -37,5 +43,26 @@ export const logout = async dispatch => {
     dispatch(logoutSuccess());
   } catch (err) {
     dispatch(logoutFailure());
+  }
+};
+
+export const deleteUser = async (id, dispatch) => {
+  dispatch(deleteUserStart());
+  try {
+    // // to delete user from database add the following line and replace deleteUserSuccess(id) with deleteUserSuccess(res.data._id)
+    // const res = await userRequest.delete(`/users/${id}`);
+    dispatch(deleteUserSuccess(id));
+  } catch (err) {
+    dispatch(deleteUserFailure());
+  }
+};
+
+export const updateUser = async (id, user, dispatch) => {
+  dispatch(updateUserStart());
+  try {
+    const res = await userRequest.put(`/users/${id}`, user);
+    dispatch(updateUserSuccess(res.data));
+  } catch (err) {
+    dispatch(updateUserFailure());
   }
 };

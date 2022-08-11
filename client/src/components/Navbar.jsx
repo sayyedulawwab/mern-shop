@@ -1,3 +1,4 @@
+import PersonOutline from '@mui/icons-material/PersonOutline';
 import Search from '@mui/icons-material/Search';
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
 import { Badge } from '@mui/material';
@@ -61,6 +62,8 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
@@ -93,7 +96,15 @@ const Navbar = () => {
         </Center>
         <Right>
           {currentUser ? (
-            <MenuItem onClick={handleClick}>LOGOUT</MenuItem>
+            <>
+              <MenuItem onClick={handleClick}>LOGOUT</MenuItem>
+              <Link to={`/users/${currentUser._id}`}>
+                <MenuItem>
+                  <PersonOutline />
+                  PROFILE
+                </MenuItem>
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/register">
