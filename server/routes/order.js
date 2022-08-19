@@ -7,6 +7,16 @@ const {
 
 const router = require('express').Router();
 
+//GET USER ORDERS
+router.get('/:userId', verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.params.userId });
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //CREATE
 router.post('/', verifyToken, async (req, res) => {
   const newOrder = new Order(req.body);
@@ -45,15 +55,7 @@ router.delete('/:id', verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET USER ORDERS
-router.get('/find/:userId', verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const orders = await Order.find({ userId: req.params.userId });
-    res.status(200).json(orders);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+
 
 //GET ALL
 router.get('/', verifyTokenAndAdmin, async (req, res) => {
