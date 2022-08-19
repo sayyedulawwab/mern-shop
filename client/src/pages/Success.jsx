@@ -42,7 +42,7 @@ const Success = () => {
     >
       {orderId
         ? `Order has been created successfully. Your order number is ${orderId}`
-        : `Successfull. Your order is being prepared...`}
+        : `Successful. Your order is being prepared...`}
       <button style={{ padding: 10, marginTop: 20 }}>Go to Homepage</button>
     </div>
   );

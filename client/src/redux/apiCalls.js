@@ -1,5 +1,10 @@
 import { publicRequest, userRequest } from '../requestMethods';
 import {
+  getOrdersFailure,
+  getOrdersStart,
+  getOrdersSuccess,
+} from './orderRedux';
+import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
@@ -51,7 +56,7 @@ export const deleteUser = async (id, dispatch) => {
   try {
     // // to delete user from database add the following line and replace deleteUserSuccess(id) with deleteUserSuccess(res.data._id)
     // const res = await userRequest.delete(`/users/${id}`);
-    dispatch(deleteUserSuccess(id));
+    dispatch(deleteUserSuccess());
   } catch (err) {
     dispatch(deleteUserFailure());
   }
@@ -64,5 +69,15 @@ export const updateUser = async (id, user, dispatch) => {
     dispatch(updateUserSuccess(res.data));
   } catch (err) {
     dispatch(updateUserFailure());
+  }
+};
+
+export const getOrders = async (userId, dispatch) => {
+  dispatch(getOrdersStart());
+  try {
+    const res = await userRequest.get(`/orders/${userId}`);
+    dispatch(getOrdersSuccess(res.data));
+  } catch (err) {
+    dispatch(getOrdersFailure());
   }
 };

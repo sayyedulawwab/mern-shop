@@ -15,6 +15,7 @@ import Announcement from '../components/Announcement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
+import Orders from '../components/Orders';
 import app from '../firebase';
 import { deleteUser, logout, updateUser } from '../redux/apiCalls';
 import { mobile } from '../responsive';
@@ -236,6 +237,7 @@ const User = () => {
             </DeleteButton>
           </InfoItem>
         </Info>
+        <Orders />
         {editForm && (
           <Form>
             <FormLeft>

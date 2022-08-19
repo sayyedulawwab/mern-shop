@@ -44,14 +44,10 @@ const userSlice = createSlice({
     //DELETE
     deleteUserStart: state => {
       state.pending = true;
-      state.error = false;
     },
-    deleteUserSuccess: (state, action) => {
+    deleteUserSuccess: state => {
       state.pending = false;
-      state.users.splice(
-        state.users.findIndex(item => item._id === action.payload),
-        1
-      );
+      state.currentUser = null;
     },
     deleteUserFailure: state => {
       state.pending = false;
@@ -60,7 +56,6 @@ const userSlice = createSlice({
     //UPDATE
     updateUserStart: state => {
       state.pending = true;
-      state.error = false;
     },
     updateUserSuccess: (state, action) => {
       state.pending = false;
