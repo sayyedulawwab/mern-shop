@@ -34,6 +34,18 @@ import {
   updateUserSuccess,
 } from './userRedux';
 
+import {
+  deleteOrderFailure,
+  deleteOrderStart,
+  deleteOrderSuccess,
+  getOrdersFailure,
+  getOrdersStart,
+  getOrdersSuccess,
+  updateOrderFailure,
+  updateOrderStart,
+  updateOrderSuccess,
+} from './orderRedux';
+
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
@@ -130,5 +142,36 @@ export const addUser = async (user, dispatch) => {
     dispatch(addUserSuccess(res.data));
   } catch (err) {
     dispatch(addUserFailure());
+  }
+};
+
+export const getOrders = async dispatch => {
+  dispatch(getOrdersStart());
+  try {
+    const res = await userRequest.get('/orders');
+    dispatch(getOrdersSuccess(res.data));
+  } catch (err) {
+    dispatch(getOrdersFailure());
+  }
+};
+
+export const deleteOrder = async (id, dispatch) => {
+  dispatch(deleteOrderStart());
+  try {
+    // // to delete order from database add the following line and replace deleteOrderSuccess(id) with deleteOrderSuccess(res.data._id)
+    // const res = await orderRequest.delete(`/orders/${id}`);
+    dispatch(deleteOrderSuccess(id));
+  } catch (err) {
+    dispatch(deleteOrderFailure());
+  }
+};
+
+export const updateOrder = async (id, order, dispatch) => {
+  dispatch(updateOrderStart());
+  try {
+    const res = await userRequest.put(`/orders/${id}`, order);
+    dispatch(updateOrderSuccess(res.data));
+  } catch (err) {
+    dispatch(updateOrderFailure());
   }
 };

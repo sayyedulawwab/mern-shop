@@ -9,18 +9,21 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NewProduct from './pages/NewProduct';
 import NewUser from './pages/NewUser';
+import Order from './pages/Order';
+import OrderList from './pages/OrderList';
 import Product from './pages/Product';
 import ProductList from './pages/ProductList';
 import User from './pages/User';
 import UserList from './pages/UserList';
 
 function App() {
-  const admin = useSelector(state => state.user.currentUser);
+  const isAdmin =
+    useSelector(state => state.user.currentUser?.isAdmin) || false;
 
   return (
     <Router>
       <Routes>
-        {admin ? (
+        {isAdmin ? (
           <>
             <Route exact path="/" element={<Home />} />
             <Route path="/users" element={<UserList />} />
@@ -29,7 +32,9 @@ function App() {
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:productId" element={<Product />} />
             <Route path="/newproduct" element={<NewProduct />} />
-            <Route path="/login" element={<Navigate to="/" />} />
+            <Route path="/orders" element={<OrderList />} />
+            <Route path="/orders/:orderId" element={<Order />} />
+            <Route path="/login" element={<Navigate to="/" replace={true} />} />
           </>
         ) : (
           <>

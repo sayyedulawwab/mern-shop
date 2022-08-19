@@ -10,8 +10,6 @@ import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import SettingsSystemDaydreamOutlinedIcon from '@mui/icons-material/SettingsSystemDaydreamOutlined';
 import StoreIcon from '@mui/icons-material/Store';
-import Timeline from '@mui/icons-material/Timeline';
-import TrendingUp from '@mui/icons-material/TrendingUp';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -99,14 +97,14 @@ const Sidebar = () => {
               <span>Home</span>
             </ListItem>{' '}
           </Link>
-          <ListItem>
+          {/* <ListItem>
             <Timeline className="icon" />
             <span>Analytics</span>
           </ListItem>
           <ListItem>
             <TrendingUp className="icon" />
             <span>Sales</span>
-          </ListItem>
+          </ListItem> */}
           <Title>LISTS</Title>
           <Link to="/users">
             <ListItem>
@@ -119,11 +117,13 @@ const Sidebar = () => {
               <StoreIcon className="icon" />
               <span>Products</span>
             </ListItem>
+          </Link>{' '}
+          <Link to="/orders">
+            <ListItem>
+              <AttachMoney className="icon" />
+              <span>Transactions</span>
+            </ListItem>
           </Link>
-          <ListItem>
-            <AttachMoney className="icon" />
-            <span>Transactions</span>
-          </ListItem>
           <ListItem>
             <BarChart className="icon" />
             <span>Reports</span>

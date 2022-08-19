@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { login } from '../redux/apiCalls';
 
@@ -72,10 +73,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { pending, error } = useSelector(state => state.user);
+  const navigate = useNavigate();
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
-    login(dispatch, { username, password });
+    await login(dispatch, { username, password });
+    navigate('/', { replace: true });
   };
 
   return (
